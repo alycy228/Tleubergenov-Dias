@@ -1,0 +1,28 @@
+﻿<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+</head>
+<body>
+<h1>Профиль</h1>
+<p>Пользователь: <span th:text="${username}">user</span></p>
+<p>Номер карты/счета: <span th:text="${accountNumber}">0000</span></p>
+<p>Баланс: <span th:text="${balance}">0.00</span></p>
+<p>Валюта: <span th:text="${currency}">KZT</span></p>
+<form method="post" action="/profile/currency">
+    <label>Изменить валюту</label>
+    <select name="currency">
+        <option value="KZT">KZT</option>
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+        <option value="RUB">RUB</option>
+        <option value="GBP">GBP</option>
+    </select>
+    <button type="submit">Сохранить</button>
+</form>
+<p th:if="${isAdmin}"><a href="/admin/users">Админ меню</a></p>
+<p><a href="/home">На главную</a></p>
+<p><a href="/logout">Выйти</a></p>
+</body>
+</html>

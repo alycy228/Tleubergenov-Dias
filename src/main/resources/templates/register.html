@@ -1,0 +1,24 @@
+﻿<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+<h1>Регистрация</h1>
+<form method="post" action="/register">
+    <input name="username" placeholder="Имя пользователя">
+    <input name="password" type="password" placeholder="Пароль">
+    <input name="accountNumber" placeholder="Номер счета/карты">
+    <select name="currency">
+        <option value="KZT">KZT</option>
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+        <option value="RUB">RUB</option>
+        <option value="GBP">GBP</option>
+    </select>
+    <button type="submit">Регистрация</button>
+</form>
+<p><a href="/login">Уже есть аккаунт? Войти</a></p>
+</body>
+</html>

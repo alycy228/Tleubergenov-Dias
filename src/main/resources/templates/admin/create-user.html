@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Create User</title>
+</head>
+<body>
+<h2>Create User</h2>
+<form method="post" action="/admin/create" th:object="${user}">
+    <div>
+        <label>Username</label>
+        <input type="text" th:field="*{username}">
+    </div>
+    <div>
+        <label>Password</label>
+        <input type="password" th:field="*{password}">
+    </div>
+    <div>
+        <label>Account Number</label>
+        <input type="text" th:field="*{accountNumber}">
+    </div>
+    <div>
+        <label>Currency</label>
+        <select th:field="*{currency}">
+            <option value="KZT">KZT</option>
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="RUB">RUB</option>
+            <option value="GBP">GBP</option>
+        </select>
+    </div>
+    <div>
+        <label>Role</label>
+        <select th:field="*{role}">
+            <option value="USER">USER</option>
+            <option value="ADMIN">ADMIN</option>
+        </select>
+    </div>
+    <button type="submit">Save</button>
+</form>
+<p><a href="/admin/users">Back to list</a></p>
+</body>
+</html>
