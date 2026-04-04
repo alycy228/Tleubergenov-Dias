@@ -31,13 +31,32 @@ public class PageController {
         return "home";
     }
 
+    @GetMapping({"/services", "/services.html"})
+    public String services() {
+        return "services";
+    }
+
+    @PostMapping("/services/request")
+    public String requestService(@RequestParam String type, Model model) {
+        String label = switch (type) {
+            case "cash_loan" -> "Кредит наличными";
+            case "mortgage" -> "Ипотека";
+            case "credit_card" -> "Кредитная карта";
+            case "deposit" -> "Депозит";
+            default -> "Услуга";
+        };
+        model.addAttribute("message", "Заявка на услугу \"" + label + "\" принята (демо).");
+        return "services";
+    }
+
     @GetMapping({"/login", "/login.html"})
     public String login() {
         return "login";
     }
 
     @GetMapping({"/register", "/register.html"})
-    public String registerPage() {
+    public String registerPage(Model model) {
+        model.addAttribute("account", new Account());
         return "register";
     }
 

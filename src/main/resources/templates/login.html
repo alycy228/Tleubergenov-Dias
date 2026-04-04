@@ -1,16 +1,22 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <link rel="stylesheet" href="/css/common.css">
 </head>
 <body>
-<h1>Вход</h1>
-<form method="post" action="/login">
-    <input name="username" placeholder="Имя пользователя">
-    <input name="password" type="password" placeholder="Пароль">
-    <button type="submit">Войти</button>
-</form>
-<p><a href="/register">Нет аккаунта? Регистрация</a></p>
+<main class="page centered">
+    <section class="card narrow">
+        <h1>Вход</h1>
+        <p class="muted">Добро пожаловать. Введите данные аккаунта.</p>
+        <form class="form" method="post" action="/login">
+            <input name="username" placeholder="Имя пользователя" autocomplete="username">
+            <input name="password" type="password" placeholder="Пароль" autocomplete="current-password">
+            <button class="btn primary mt-8" type="submit">Войти</button>
+        </form>
+        <a class="link mt-16" href="/register">Нет аккаунта? Регистрация</a>
+    </section>
+</main>
 </body>
 </html>

@@ -1,9 +1,11 @@
 package kz.enu.Banking.System.Models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
 
 import java.util.Objects;
 
@@ -15,6 +17,9 @@ public class Account {
     private String accountNumber;
     private String username;
     private String password;
+    @Email
+    @Column(unique = true)
+    private String email;
     private String role;
     private double balance;
     private String currency;
@@ -23,11 +28,12 @@ public class Account {
     public Account() {
     }
 
-    public Account(Long id, String accountNumber, String username, String password, String role, double balance, String currency, Long customerId) {
+    public Account(Long id, String accountNumber, String username, String password, String email, String role, double balance, String currency, Long customerId) {
         this.id = id;
         this.accountNumber = accountNumber;
         this.username = username;
         this.password = password;
+        this.email = email;
         this.role = role;
         this.balance = balance;
         this.currency = currency;
@@ -64,6 +70,14 @@ public class Account {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getRole() {
@@ -104,6 +118,7 @@ public class Account {
                 "id=" + id +
                 ", accountNumber='" + accountNumber + '\'' +
                 ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
                 ", balance=" + balance +
                 ", currency='" + currency + '\'' +
                 ", customerId=" + customerId +
@@ -120,6 +135,7 @@ public class Account {
                 Objects.equals(accountNumber, account.accountNumber) &&
                 Objects.equals(username, account.username) &&
                 Objects.equals(password, account.password) &&
+                Objects.equals(email, account.email) &&
                 Objects.equals(role, account.role) &&
                 Objects.equals(currency, account.currency) &&
                 Objects.equals(customerId, account.customerId);
@@ -127,6 +143,6 @@ public class Account {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, accountNumber, username, password, role, balance, currency, customerId);
+        return Objects.hash(id, accountNumber, username, password, email, role, balance, currency, customerId);
     }
 }

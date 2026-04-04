@@ -12,6 +12,12 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    private final LoginNotificationSuccessHandler loginNotificationSuccessHandler;
+
+    public SecurityConfig(LoginNotificationSuccessHandler loginNotificationSuccessHandler) {
+        this.loginNotificationSuccessHandler = loginNotificationSuccessHandler;
+    }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -29,7 +35,7 @@ public class SecurityConfig {
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/home", true)
+                        .successHandler(loginNotificationSuccessHandler)
                         .permitAll()
                 )
                 .logout(logout -> logout

@@ -1,13 +1,37 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
+    <link rel="stylesheet" href="/css/common.css">
 </head>
 <body>
-<h1>Добро пожаловать!</h1>
-<p><a href="/profile">Профиль</a></p>
-<p th:if="${isAdmin}"><a href="/admin/users">Админ меню</a></p>
-<p><a href="/logout">Выйти</a></p>
+<main class="page">
+    <section class="shell">
+        <h1>Добро пожаловать!</h1>
+        <p class="muted">Выберите действие, чтобы продолжить работу в системе.</p>
+        <div class="grid mt-18">
+            <div class="card">
+                <div class="label">Услуги</div>
+                <div class="value">Кредиты, депозиты, карты</div>
+                <div class="actions">
+                    <a class="btn primary" href="/services">Открыть услуги</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="label">Профиль</div>
+                <div class="value">Данные счета и настройки</div>
+                <div class="actions">
+                    <a class="btn" href="/profile">Перейти в профиль</a>
+                </div>
+            </div>
+        </div>
+        <div class="actions">
+            <a class="btn primary" href="/services">Услуги</a>
+            <a class="btn" th:if="${isAdmin}" href="/admin/users">Админ меню</a>
+            <a class="btn ghost" href="/logout">Выйти</a>
+        </div>
+    </section>
+</main>
 </body>
 </html>

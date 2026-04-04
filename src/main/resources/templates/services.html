@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Services</title>
+    <link rel="stylesheet" href="/css/common.css">
+</head>
+<body>
+<main class="page">
+    <section class="shell">
+        <h1>Услуги банка(TEST-DEMO)</h1>
+        <p class="muted">Учебные заявки без реальных транзакций и карт.</p>
+        <div class="card mt-18" th:if="${message}">
+            <div class="value" th:text="${message}">Заявка принята.</div>
+        </div>
+        <section class="grid mt-18">
+            <article class="card">
+                <h2>Кредит наличными</h2>
+                <p class="muted">demo заявку на кредит.</p>
+                <form class="actions" method="post" action="/services/request">
+                    <input type="hidden" name="type" value="cash_loan">
+                    <button class="btn primary" type="submit">Оформить</button>
+                </form>
+            </article>
+            <article class="card">
+                <h2>Ипотека</h2>
+                <p class="muted">demo заявки на ипотеку.</p>
+                <form class="actions" method="post" action="/services/request">
+                    <input type="hidden" name="type" value="mortgage">
+                    <button class="btn primary" type="submit">Оформить</button>
+                </form>
+            </article>
+            <article class="card">
+                <h2>Кредитная карта</h2>
+                <p class="muted">demo.</p>
+                <form class="actions" method="post" action="/services/request">
+                    <input type="hidden" name="type" value="credit_card">
+                    <button class="btn primary" type="submit">Оформить</button>
+                </form>
+            </article>
+            <article class="card">
+                <h2>Депозит</h2>
+                <p class="muted">demo testtest.</p>
+                <form class="actions" method="post" action="/services/request">
+                    <input type="hidden" name="type" value="deposit">
+                    <button class="btn primary" type="submit">Открыть</button>
+                </form>
+            </article>
+        </section>
+        <div class="actions">
+            <a class="btn" href="/home">На главную</a>
+            <a class="btn" href="/profile">Профиль</a>
+        </div>
+    </section>
+</main>
+</body>
+</html>

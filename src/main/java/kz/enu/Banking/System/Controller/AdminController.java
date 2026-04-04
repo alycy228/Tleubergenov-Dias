@@ -2,6 +2,7 @@ package kz.enu.Banking.System.Controller;
 
 import kz.enu.Banking.System.Models.Account;
 import kz.enu.Banking.System.repository.AccountRepository;
+import kz.enu.Banking.System.service.EmailService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,10 +17,12 @@ public class AdminController {
 
     private final AccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
+    private final EmailService emailService;
 
-    public AdminController(AccountRepository accountRepository, PasswordEncoder passwordEncoder) {
+    public AdminController(AccountRepository accountRepository, PasswordEncoder passwordEncoder, EmailService emailService) {
         this.accountRepository = accountRepository;
         this.passwordEncoder = passwordEncoder;
+        this.emailService = emailService;
     }
 
     @GetMapping("/users")
@@ -42,6 +45,9 @@ public class AdminController {
         if (user.getCurrency() == null || user.getCurrency().isBlank()) {
             user.setCurrency("KZT");
         }
+        if (user.getEmail() != null) {
+            user.setEmail(user.getEmail().trim());
+        }
         user.setBalance(0.0);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         accountRepository.save(user);
@@ -61,6 +67,7 @@ public class AdminController {
         if (existing == null) {
             return "redirect:/admin/users";
         }
+        String existingEmail = existing.getEmail();
         existing.setUsername(user.getUsername());
         existing.setRole(user.getRole());
         existing.setAccountNumber(user.getAccountNumber());
@@ -68,10 +75,31 @@ public class AdminController {
         if (user.getCurrency() != null && !user.getCurrency().isBlank()) {
             existing.setCurrency(user.getCurrency());
         }
+        if (user.getEmail() != null && !user.getEmail().isBlank()) {
+            existing.setEmail(user.getEmail().trim());
+        }
+        boolean passwordChanged = false;
         if (user.getPassword() != null && !user.getPassword().isBlank()) {
             existing.setPassword(passwordEncoder.encode(user.getPassword()));
+            passwordChanged = true;
         }
         accountRepository.save(existing);
+        if (passwordChanged) {
+            String targetEmail = (existingEmail != null && !existingEmail.isBlank())
+                    ? existingEmail
+                    : existing.getEmail();
+            if (targetEmail != null && !targetEmail.isBlank()) {
+                try {
+                    emailService.sendEmail(
+                            targetEmail,
+                            "Password changed",
+                            "Your password has been changed. If this wasn't you, contact support."
+                    );
+                } catch (RuntimeException ex) {
+                    // Ignore email failures to avoid breaking admin update flow.
+                }
+            }
+        }
         return "redirect:/admin/users";
     }
 
